@@ -1,20 +1,20 @@
 const listen = require("test-listen")
-const axios = require("axios")
+const request = require("supertest")
 const server = require("../src/index")
 
 describe("server tests", () => {
-  it("should work", async () => {
-    server.listen(8080)
+  it("should return a status of 200 (OK)", async () => {
+    url = await listen(server)
+    console.log(url)
     try {
-      response = await axios.get(`http://localhost:8080`)
+      response = await request(url).get("/")
     } catch (err) {
       server.close()
-      console.log(err)
+      console.error(err)
       // fail
       throw err
     }
-    expect(response).toBeTruthy()
-    console.log(response)
+    expect(response.statusCode).toBe(200)
     server.close()
   })
 })
