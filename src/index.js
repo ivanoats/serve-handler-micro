@@ -9,4 +9,4 @@ const server = micro(async (request, response) => {
   })
 })
 
-server.listen(port)
+module.exports = server
